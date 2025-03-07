@@ -7,6 +7,8 @@ import json
 # Add the project root to Python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
+
+
 from crews.learning_crew.learning_crew import LearningCrew
 
 
@@ -72,5 +74,24 @@ if submit_button:
         with st.expander("🎵 Music Theory Concepts", expanded=True):
             st.markdown(tasks_output[2].raw)
         
-        with st.expander("❓ Knowledge Quiz", expanded=True):
-            st.markdown(tasks_output[3].raw)
+        # Parse the quiz JSON from the tasks output
+        import json
+        try:
+            quiz_data = json.loads(tasks_output[3].raw)
+            
+            # Display questions in one expander
+            with st.expander("❓ Quiz Questions", expanded=True):
+                st.subheader(quiz_data.get("topic", "Weekly Quiz"))
+                for i, question in enumerate(quiz_data.get("questions", []), 1):
+                    st.write(f"**Question {i}:** {question}")
+            
+            # Display answers in another expander
+            with st.expander("✅ Quiz Answers", expanded=False):
+                st.subheader(f"Answers for {quiz_data.get('topic', 'Weekly Quiz')}")
+                for q_num, answer in quiz_data.get("Answer", {}).items():
+                    st.write(f"**{q_num}:** {answer}")
+        
+        except json.JSONDecodeError:
+            # If JSON parsing fails, display the raw output
+            with st.expander("❓ Knowledge Quiz", expanded=True):
+                st.markdown(tasks_output[3].raw)
