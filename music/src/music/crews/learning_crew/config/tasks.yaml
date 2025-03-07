@@ -1,0 +1,57 @@
+analyze_user_profile:
+  description: >
+    Analyze the User profile by checking the input. Create an individual user profile with
+    their current knowledge level.
+  expected_output: >
+    Motivation and Goals: learn specific piece, hobby player
+    Previous Experience: complete beginner, self-taught, years of lessons
+    Reading Sheet music: Beginner, Intermediate, Advanced
+    Scales, chords, intervals: Beginner, Intermediate, Advanced
+    Finger exercises and scales: Beginner, Intermediate, Advanced
+    Pieces played before: Für Elise, Twinkle Twinkle little star
+    Frequency of practice: every day, every other day, once a week
+    Time commitment: Minutes, Hours
+  agent: learning_plan_agent
+
+create_learning_plan:
+  description: >
+    Based on the current user profile create a 3 months learning plan with a lesson for 
+    every week and a piece to play that week. Give a topic to focus on each week.
+    Keep in mind that the content needs to be teachable in the timeframe given by the User.
+  expected_output: >
+    First Month: Overarching Topic
+      Week 1: Smaller topic 1
+      Week 2: Smaller topic 2
+      Week 3: Smaller topic 3
+      Week 4: Smaller topic 4
+    Second Month: Overarching Topic
+      Week 5: Smaller topic 5
+      Week 6: Smaller topic 6
+      Week 7: Smaller topic 7
+      Week 8: Smaller topic 8
+    Third Month: Overarching Topic
+      Week 9: Smaller topic 9
+      Week 10: Smaller topic 10
+      Week 11: Smaller topic 11
+      Week 12: Smaller topic
+  agent: learning_plan_agent
+
+explain_music_theory:
+  description: >
+    Create a detailed explaination of the current weeks topic. 
+    Be clear, interactive and connect it to pracitcal playing.
+  expected_output: >
+    Week : Topic
+    Smaller topic:
+      - Explanation of the topic
+      - Practical examples
+      - Interactive exercises
+      - Additional resources
+  agent: music_theory_agent
+
+create_quiz:
+  description: >
+    Generate a quiz based on the music theory of the correspondent week. 
+  expected_output: >
+    {"topic":"Week: Smaller topic", "questions": ["List of quiz questions"], "feedback": {"Q1": "Feedback",...}}
+  agent: music_quiz_agent
