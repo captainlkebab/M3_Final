@@ -52,69 +52,25 @@ if submit_button:
             frequency_of_practice=frequency_of_practice,
             time_commitment=time_commitment,
         )
-
         # Initialize the learning crew and kickoff
         learning_crew = LearningCrew()
         result = learning_crew.crew().kickoff(inputs=user_profile.dict())
         
-        # Get the raw result
-        raw_result = result.raw if hasattr(result, 'raw') else result
+        # Display the AI-generated response in sections
+        st.subheader("Your AI-Powered Piano Learning Journey 🎼")
         
-    # Display the AI-generated response in sections
-    st.subheader("Your AI-Powered Piano Learning Journey 🎼")
-    
-    # Create a more organized display of results with expandable sections
-    with st.expander("🧠 User Profile Analysis", expanded=True):
-        try:
-            profile_analysis = result["analyze_user_profile"]
-            st.markdown(profile_analysis)
-        except:
-            st.write("Could not retrieve user profile analysis.")
-    
-    with st.expander("📝 Personalized Learning Plan", expanded=True):
-        try:
-            learning_plan = result["create_learning_plan"]
-            st.markdown(learning_plan)
-            
-            # If the learning plan contains a structured weekly plan, display it nicely
-            if "Week 1" in learning_plan:
-                st.subheader("Weekly Breakdown")
-                weeks = learning_plan.split("Week")
-                for i, week in enumerate(weeks[1:], 1):
-                    with st.expander(f"Week {i}", expanded=i==1):
-                        st.markdown(f"Week{week}")
-        except:
-            st.write("Could not retrieve learning plan.")
-    
-    with st.expander("🎵 Music Theory Concepts", expanded=True):
-        try:
-            music_theory = result["explain_music_theory"]
-            st.markdown(music_theory)
-        except:
-            st.write("Could not retrieve music theory explanation.")
-    
-    with st.expander("❓ Knowledge Quiz", expanded=True):
-        try:
-            quiz = result["create_quiz"]
-            
-            # Display the quiz in a more interactive way
-            st.markdown("### Test Your Understanding")
-            
-            # Split the quiz into questions
-            if "Q1:" in quiz:
-                questions = quiz.split("Q")
-                for i, question in enumerate(questions[1:], 1):
-                    with st.expander(f"Question {i}", expanded=False):
-                        st.markdown(f"Q{question}")
-            else:
-                st.markdown(quiz)
-        except:
-            st.write("Could not retrieve quiz.")
-    
-    # Add a download button for the complete plan
-    st.download_button(
-        label="Download Complete Learning Plan",
-        data=raw_result,
-        file_name="piano_learning_plan.txt",
-        mime="text/plain"
-    )
+        # Get the tasks output list
+        tasks_output = result.tasks_output
+        
+        # Display each task's output as it appears in the terminal
+        with st.expander("🧠 User Profile Analysis", expanded=True):
+            st.write(tasks_output[0])
+        
+        with st.expander("📝 Personalized Learning Plan", expanded=True):
+            st.write(tasks_output[1])
+        
+        with st.expander("🎵 Music Theory Concepts", expanded=True):
+            st.write(tasks_output[2])
+        
+        with st.expander("❓ Knowledge Quiz", expanded=True):
+            st.write(tasks_output[3])
