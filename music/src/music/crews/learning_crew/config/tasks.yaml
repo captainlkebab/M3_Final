@@ -1,57 +1,65 @@
 analyze_user_profile:
   description: >
-    Analyze the User profile by checking the input. Create an individual user profile with
-    their current knowledge level.
+    Analyze the simplified user profile focusing on their current piano level, sheet music reading ability,
+    practice frequency, and time commitment. Create a comprehensive individual learning profile with
+    recommendations tailored to their specific situation.
   expected_output: >
-    Motivation and Goals: learn specific piece, hobby player
-    Previous Experience: complete beginner, self-taught, years of lessons
-    Reading Sheet music: Beginner, Intermediate, Advanced
-    Scales, chords, intervals: Beginner, Intermediate, Advanced
-    Finger exercises and scales: Beginner, Intermediate, Advanced
-    Pieces played before: Für Elise, Twinkle Twinkle little star
-    Frequency of practice: every day, every other day, once a week
-    Time commitment: Minutes, Hours
+    Provide a detailed analysis of the user's piano learning profile including:
+    - Current skill level assessment (beginner, intermediate, advanced)
+    - Sheet music reading proficiency and areas for improvement
+    - Practice schedule analysis based on frequency and time commitment
+    - Realistic learning pace and goals given their available practice time
+    - Recommended focus areas based on their current level
+    - Suggested repertoire appropriate for their skill level
+    - Any additional insights that would help personalize their learning journey
   agent: learning_plan_agent
 
 create_learning_plan:
   description: >
-    Based on the current user profile create a 3 months learning plan with a lesson for 
-    every week and a piece to play that week. Give a topic to focus on each week.
-    Keep in mind that the content needs to be teachable in the timeframe given by the User.
+    Based on the user profile analysis, create a structured 3-month piano learning plan. 
+    Design weekly lessons that are achievable within the user's practice frequency and time commitment.
+    Each week should include a specific focus topic and an appropriate piece to practice.
+    Make sure to check with a human which week they want to practice now.
   expected_output: >
-    First Month: Overarching Topic
-      Week 1: Smaller topic 1
-      Week 2: Smaller topic 2
-      Week 3: Smaller topic 3
-      Week 4: Smaller topic 4
-    Second Month: Overarching Topic
-      Week 5: Smaller topic 5
-      Week 6: Smaller topic 6
-      Week 7: Smaller topic 7
-      Week 8: Smaller topic 8
-    Third Month: Overarching Topic
-      Week 9: Smaller topic 9
-      Week 10: Smaller topic 10
-      Week 11: Smaller topic 11
-      Week 12: Smaller topic
+    First Month: Building Foundation
+      Week 1: Topic with specific technique focus
+      Week 2: Topic with clear learning objectives
+      Week 3: Topic with progressive skill development
+      Week 4: Topic with practical application
+    Second Month: Skill Development
+      Week 5: Topic building on first month's progress
+      Week 6: Topic introducing new concepts
+      Week 7: Topic reinforcing previous learning
+      Week 8: Topic with performance preparation
+    Third Month: Musical Expression
+      Week 9: Topic focusing on interpretation
+      Week 10: Topic enhancing technical skills
+      Week 11: Topic integrating all learned concepts
+      Week 12: Topic with performance goals
   agent: learning_plan_agent
+
 
 explain_music_theory:
   description: >
-    Create a detailed explaination of the current weeks topic. 
-    Be clear, interactive and connect it to pracitcal playing.
+    Create a detailed explanation of the current week's topic that is accessible and engaging.
+    Include practical examples, interactive exercises, and clear connections to piano playing.
+    Ensure explanations are appropriate for the user's current level and reading ability.
   expected_output: >
-    Week : Topic
-    Smaller topic:
-      - Explanation of the topic
-      - Practical examples
-      - Interactive exercises
-      - Additional resources
+    Week X: Topic Title
+      - Clear explanation of the concept with beginner-friendly terminology
+      - Practical examples showing real-world application
+      - Step-by-step interactive exercises tailored to skill level
+      - Suggested practice techniques within time constraints
+      - Additional resources for further exploration
   agent: music_theory_agent
 
 create_quiz:
   description: >
-    Generate a quiz based on the music theory of the correspondent week. 
+    Generate a quiz based on the music theory covered in the current week's lesson.
+    Questions should reinforce key concepts and be appropriate for the user's level.
+    Include helpful feedback for each answer to enhance learning.
   expected_output: >
-    {"topic":"Week: Smaller topic", "questions": ["List of quiz questions"], "feedback": {"Q1": "Feedback",...}}
+    {"topic":"Week X: Topic Title", 
+     "questions": ["Question focusing on key concept", "Question applying theory to practice", "Question testing understanding"],
+     "Answer": {"Q1": "Helpful explanation reinforcing learning", "Q2": "Constructive feedback with practical tip", "Q3": "Encouraging response with additional insight"}}
   agent: music_quiz_agent
